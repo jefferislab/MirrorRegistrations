@@ -10,7 +10,7 @@ Details
 =======
 Each mirror registration in this repository maps one common template brain onto a medio-laterally flipped version of itself. It must therefore be combined with a preliminary step that flips the starting (image or point) data about the mid plane of the template image (typically YZ plane). The non-rigid registration therefore serves to fix the small displacements that are left after this simple flip. 
 
-The naming convention for the preliminary rigid registration about the mid plane of the template image is `TARGET_xflip.list` where TARGET is a short name for the final template brain and `xflip` indicates the image axis along which the image was flipped. The subsequent non-rigid registration to fix any residual displacements due to asymmetries in the brain are called `TARGET_mirror.list`. Thus to map image data from the right to left (or vice versa) in the JFRC2 template space (see [virtual fly brain](http://www.virtualflybrain.org) for details) one would want to use `JFRC2_xflip.list` followed by `JFRC2_mirror.list`. 
+The naming convention for the preliminary rigid registration about the mid plane of the template image is `TARGET_imgflip.list` where TARGET is a short name for the final template brain and `imgflip` indicates the image axis along which the image was flipped. The subsequent non-rigid registration to fix any residual displacements due to asymmetries in the brain are called `TARGET_mirror.list`. Thus to map image data from the right to left (or vice versa) in the JFRC2 template space (see [virtual fly brain](http://www.virtualflybrain.org) for details) one would want to use `JFRC2_imgflip.list` followed by `JFRC2_mirror.list`. 
 
 Software
 ========
@@ -56,19 +56,19 @@ Example
 Map a prominent point in the PLP from left to right
 
     cd /path/to/MirrorRegistrations
-    echo 430 142.5 100 | streamxform --  --inverse JFRC2_xflip.list --inverse JFRC2_mirror.list
+    echo 430 142.5 100 | streamxform --  --inverse JFRC2_imgflip.list --inverse JFRC2_mirror.list
     # 206.67601 146.293051 105.666597
 
 Now we can see how good our mirroring is 
 
-    echo 206.67601 146.293051 105.666597 | streamxform --  --inverse JFRC2_xflip.list --inverse JFRC2_mirror.list
+    echo 206.67601 146.293051 105.666597 | streamxform --  --inverse JFRC2_imgflip.list --inverse JFRC2_mirror.list
     # 429.836709 142.154807 99.4046885
 
 i.e. close but not exactly the same point - due to the fact that the registration cannot perfectly match the two halves of the brain.
 
 We can test the numerical stability of CMTK's inversion of the warping transformation by doing
 
-    echo 206.67601 146.293051 105.666597 | streamxform -- JFRC2_mirror.list JFRC2_xflip.list
+    echo 206.67601 146.293051 105.666597 | streamxform -- JFRC2_mirror.list JFRC2_imgflip.list
     # 430 142.5 99.9999995
 
 i.e. errors due to numerical instabilities in the inversion are minimal in this case
