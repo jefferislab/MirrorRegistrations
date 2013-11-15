@@ -3,15 +3,18 @@ Introduction
 The fly brain is a highly stereotyped 3D structure.  A number of groups have now published 3D confocal image datasets where all images have been registered to a specific template brain. For almost all purposes the fly brain should be considered symmetric about its mid-sagittal plane i.e. the plane perpendicular to the medio-lateral axis - typically the X axis in image data. However, while the platonic fly brain may be symmetric, individual fly brains that have been fixed, stained and imaged are often 
   - significantly asymmetric
   - not placed exactly in the centre of the image with respect to their mid-sagittal plane
+
 While it is trivial to make template brains that are centred and possible to make symmetric template brains if one wishes, this has rarely been done in practice. It is therefore necessary to do more than simply mirror along the medio-lateral axis if one wishes to map neurons/structures in the left brain hemisphere onto the right hemisphere.
 
 Details
 =======
-Each mirror registration in this repository maps one common template brain onto a medio-laterally flipped version of itself. It must therefore be combined with a preliminary step that flips the starting (image or point) data about the mid plane of the template image (typically YZ plane). The non-rigid registration therefore serves to fix the small displacements that are left after this simple flip. The naming convention is `TARGET_mirror.list` where TARGET is a short name for the final template brain. Thus to map image data from the right to left (or vice versa) in the JFRC2 template space (see [virtual fly brain](http://www.virtualflybrain.org) for details) one would want `JFRC2_mirror.list`. 
+Each mirror registration in this repository maps one common template brain onto a medio-laterally flipped version of itself. It must therefore be combined with a preliminary step that flips the starting (image or point) data about the mid plane of the template image (typically YZ plane). The non-rigid registration therefore serves to fix the small displacements that are left after this simple flip. 
+
+The naming convention for the preliminary rigid registration about the mid plane of the template image is `TARGET_xflip.list` where TARGET is a short name for the final template brain and `xflip` indicates the image axis along which the image was flipped. The subsequent non-rigid registration to fix any residual displacements due to asymmetries in the brain are called `TARGET_mirror.list`. Thus to map image data from the right to left (or vice versa) in the JFRC2 template space (see [virtual fly brain](http://www.virtualflybrain.org) for details) one would want to use `JFRC2_xflip.list` followed by `JFRC2_mirror.list`. 
 
 Software
 ========
-All registrations were constructed with the aid of the open source Computational Morphometry Toolkit ([CMTK](http://www.nitrc.org/projects/cmtk/)) . In each cases the final output contains a non-rigid (warping) intensity-based registration between two template brains (CMTK command `warp`). In certain cases the initial affine that was used as a starting step was computed using a surface or landmarks-based registration rather than CMTK's intensity based registration (`registration`).  You will need to install a recent (>=2.2) version of CMTK to use these registrations.
+All registrations were constructed with the aid of the open source Computational Morphometry Toolkit ([CMTK](http://www.nitrc.org/projects/cmtk/)). In each case the final output contains a non-rigid (warping) intensity-based registration between two template brains (CMTK command `warp`). In certain cases the initial affine that was used as a starting step was computed using a surface or landmarks-based registration rather than CMTK's intensity based registration (`registration`).  You will need to install a recent (>=2.2) version of CMTK to use these registrations.
 
 Usage
 =====
