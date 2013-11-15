@@ -1,0 +1,13 @@
+! TYPEDSTREAM 1.1
+
+registration {
+	reference_study "dummy"
+	model_study "dummy"
+	affine_xform {
+		xlate 636.396039426327 0 0
+		rotate 0 0 0
+		scale -1 1 1
+		shear 0 0 0
+		center 0 0 0
+	}
+}
