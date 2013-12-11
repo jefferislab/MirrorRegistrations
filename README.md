@@ -84,3 +84,7 @@ By way of example for the JFRC2 template we find a mean displacement of 0.7 micr
 ![histogram of displacements](doc/JFRC2_displacements.png "JFRC2 Displacements")
 
 In comparison across brain registration errors might be order 3-4 microns.
+
+Automatic production script
+===========================
+A simple Bash script for the automatic production of a mirror registration, given a template image, is also provided in `autoflip.sh`. This requires a small amount of configuration to set the relative locations of reference brain images, the path to the `munger` program (part of CMTK), and the path to the bin directory containing CMTK commands. This script uses Fiji to mirror a given template image and then uses CMTK to perform an affine and non-rigid (warping) registration. As an example, to produce a registration for a `JFRC.nrrd` image saved in the reference brain directory, use `./autoflip.sh JFRC`.
