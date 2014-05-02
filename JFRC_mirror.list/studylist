@@ -1,0 +1,11 @@
+! TYPEDSTREAM 2.4
+
+studylist {
+	num_sources 2
+}
+source {
+	studyname "refbrain/JFRCtemplate.nrrd"
+}
+source {
+	studyname "images/JFRCtemplate_flip_01.nrrd"
+}
