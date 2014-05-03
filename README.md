@@ -10,7 +10,9 @@ Details
 =======
 Each mirror registration in this repository maps one common template brain onto a medio-laterally flipped version of itself. It must therefore be combined with a preliminary step that flips the starting (image or point) data about the mid plane of the template image (typically YZ plane). The non-rigid registration therefore serves to fix the small displacements that are left after this simple flip. 
 
-The naming convention for the preliminary rigid registration about the mid plane of the template image is `TARGET_imgflip.list` where TARGET is a short name for the final template brain and `imgflip` indicates the image axis along which the image was flipped. The subsequent non-rigid registration to fix any residual displacements due to asymmetries in the brain are called `TARGET_mirror.list`. Thus to map image data from the right to left (or vice versa) in the JFRC2 template space (see [virtual fly brain](http://www.virtualflybrain.org) for details) one would want to use `JFRC2_imgflip.list` followed by `JFRC2_mirror.list`. 
+The naming convention for the preliminary rigid registration about the mid plane of the template image is `TARGET_imgflip.list` where TARGET is a short name for the final template brain. The subsequent non-rigid registration to fix any residual displacements due to asymmetries in the brain are called `TARGET_mirror.list`. Thus to map image data from the right to left (or vice versa) in the JFRC2 template space (see [virtual fly brain](http://www.virtualflybrain.org) for details) one would want to use `JFRC2_imgflip.list` followed by `JFRC2_mirror.list`.
+
+Of course it is also possible to avoid the use of the initial `imgflip` registrations when working with image data by using your favourite tool to flip the input data yourself along the correct axis. This could be as simple as `Flip Horizontally` in ImageJ. However you must ensure that the image's bounding box is not altered by this procedure – for ImageJ this means that images with non-zero origins cannot be handled.
 
 Software
 ========
