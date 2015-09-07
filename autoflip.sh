@@ -24,9 +24,9 @@ cp $REFLOC/$NAME.nrrd $NAME/refbrain/
 
 # Flip brain and save to correct location, via Fiji
 echo 'open("'$ROOTDIR/$NAME'/refbrain/'$NAME'.nrrd"); run("Flip Horizontally", "stack"); setKeyDown("alt"); run("Nrrd ... ", "nrrd='$ROOTDIR/$NAME'/images/'$NAME'flip_01.nrrd");' > fijitmp.ijm
-fiji -macro $ROOTDIR'/fijitmp.ijm' -batch
 rm fijitmp.ijm
 
+fiji -batch $ROOTDIR'/fijitmp.ijm' 
 cd $NAME
 
 # Create munger command
