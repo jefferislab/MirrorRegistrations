@@ -3,7 +3,14 @@
 # User config
 REFLOC="ReferenceBrains"	# Relative location of reference brain image
 MUNGER="munger"         	# Command or path to munger program
-CMTK="/opt/local/bin/"  	# Path to bin directory containing cmtk commands (for calling reformatx from munger)
+
+# Find path to bin directory containing cmtk commands (for calling reformatx from munger)
+CMTK=`which cmtk`
+grepres=`file $CMTK | grep script`
+if [ -z "$grepres" ]; then echo "cannot find cmtk shell script!"; exit 0; fi
+CMTK_BINARY_DIR=`grep CMTK_BINARY_DIR "$CMTK" | head -n 1 | grep -Eo '/[^}]+'`
+if [ -z "$CMTK_BINARY_DIR" ]; then echo "cannot find cmtk binary directory from shell script!"; exit 0; fi
+
 
 if [ -z "$*" ]; then echo "Usage: autoflip.sh <TEMPLATE_NAME>"; exit 0; fi
 
@@ -30,7 +37,7 @@ fiji -batch $ROOTDIR'/fijitmp.ijm'
 cd $NAME
 
 # Create munger command
-CMD="$MUNGER -v -b $CMTK -awr 01 -l af -T 7 -X 13 -C 5 -G 40 -R 3 -A '--accuracy 0.4 --omit-original-data' -W ' --omit-original-data --accuracy .4' -s 'refbrain/$NAME.nrrd' 'images'"
+CMD="$MUNGER -v -b $CMTK_BINARY_DIR -awr 01 -l af -T 7 -X 13 -C 5 -G 40 -R 3 -A '--accuracy 0.4 --omit-original-data' -W ' --omit-original-data --accuracy .4' -s 'refbrain/$NAME.nrrd' 'images'"
 
 # Save munger command to commands directory
 CMDFILE="commands/warp_${NAME}_${NAME}_flip.command"
