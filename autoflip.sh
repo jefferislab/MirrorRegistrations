@@ -1,8 +1,5 @@
 #!/bin/bash
-
-# User config
-REFLOC="ReferenceBrains"	# Relative location of reference brain image
-MUNGER="munger"         	# Command or path to munger program
+if [ -z "$*" ]; then echo "Usage: autoflip.sh <TEMPLATE_NAME> <path/to/inputimage.nrrd>"; exit 0; fi
 
 # Find path to bin directory containing cmtk commands (for calling reformatx from munger)
 CMTK=`which cmtk`
@@ -11,8 +8,11 @@ if [ -z "$grepres" ]; then echo "cannot find cmtk shell script!"; exit 0; fi
 CMTK_BINARY_DIR=`grep CMTK_BINARY_DIR "$CMTK" | head -n 1 | grep -Eo '/[^}]+'`
 if [ -z "$CMTK_BINARY_DIR" ]; then echo "cannot find cmtk binary directory from shell script!"; exit 0; fi
 
-
-if [ -z "$*" ]; then echo "Usage: autoflip.sh <TEMPLATE_NAME> <path/to/inputimage.nrrd>"; exit 0; fi
+# User config
+REFLOC="ReferenceBrains"	# Relative location of reference brain image
+MUNGER="munger"         	# Command or path to munger program
+if [ -z "$MUNGER" ]; then MUNGER="munger.pl"; fi
+if [ -z "$MUNGER" ]; then echo "Cannot find CMTK contributed munger[.pl] script"; exit 0; fi
 
 NAME=$1
 INPUTIMG=$2
