@@ -37,7 +37,7 @@ fiji -batch $ROOTDIR'/fijitmp.ijm'
 cd $NAME
 
 # Create munger command
-CMD="$MUNGER -v -b $CMTK_BINARY_DIR -awr 01 -l af -T 7 -X 13 -C 5 -G 40 -R 3 -A '--accuracy 0.4 --omit-original-data' -W ' --omit-original-data --accuracy .4' -s 'refbrain/$NAME.nrrd' 'images'"
+CMD="$MUNGER -v -b $CMTK_BINARY_DIR -awr 01 -l af -T 7 -X 13 -C 4 -G 20 -R 2 -A '--accuracy 0.4 --omit-original-data' -W '--accuracy .4' -s 'refbrain/$NAME.nrrd' 'images'"
 
 # Save munger command to commands directory
 CMDFILE="commands/warp_${NAME}_${NAME}_flip.command"
