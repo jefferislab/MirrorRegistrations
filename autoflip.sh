@@ -12,9 +12,10 @@ CMTK_BINARY_DIR=`grep CMTK_BINARY_DIR "$CMTK" | head -n 1 | grep -Eo '/[^}]+'`
 if [ -z "$CMTK_BINARY_DIR" ]; then echo "cannot find cmtk binary directory from shell script!"; exit 0; fi
 
 
-if [ -z "$*" ]; then echo "Usage: autoflip.sh <TEMPLATE_NAME>"; exit 0; fi
+if [ -z "$*" ]; then echo "Usage: autoflip.sh <TEMPLATE_NAME> <path/to/inputimage.nrrd>"; exit 0; fi
 
 NAME=$1
+INPUTIMG=$2
 ROOTDIR=$(pwd)
 
 # Set up directory structure
@@ -27,13 +28,15 @@ mkdir -p $NAME/Registration/affine;	# Affine transformation is saved here by CMT
 mkdir -p $NAME/Registration/warp;  	# Warp transformation is saved here by CMTK
 
 # Copy reference brain into proper location
-cp $REFLOC/$NAME.nrrd $NAME/refbrain/
+INPUTNAME=`basename $INPUTIMG`
+REFPATH="$NAME/refbrain/$NAME.nrrd"
+cp $INPUTIMG $REFPATH
 
 # Flip brain and save to correct location, via Fiji
-echo 'open("'$ROOTDIR/$NAME'/refbrain/'$NAME'.nrrd"); run("Flip Horizontally", "stack"); setKeyDown("alt"); run("Nrrd ... ", "nrrd='$ROOTDIR/$NAME'/images/'$NAME'flip_01.nrrd");' > fijitmp.ijm
-rm fijitmp.ijm
+echo 'open("'$ROOTDIR/$REFPATH'"); run("Flip Horizontally", "stack"); setKeyDown("alt"); run("Nrrd ... ", "nrrd='$ROOTDIR/$NAME'/images/'$NAME'flip_01.nrrd");' > fijitmp.ijm
 
 fiji -batch $ROOTDIR'/fijitmp.ijm' 
+rm fijitmp.ijm
 cd $NAME
 
 # Create munger command
