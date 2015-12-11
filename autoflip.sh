@@ -6,7 +6,7 @@ MUNGER="munger"         	# Command or path to munger program
 
 # Find path to bin directory containing cmtk commands (for calling reformatx from munger)
 CMTK=`which cmtk`
-grepres=`file $CMTK | grep script`
+grepres=`file -L $CMTK | grep script`
 if [ -z "$grepres" ]; then echo "cannot find cmtk shell script!"; exit 0; fi
 CMTK_BINARY_DIR=`grep CMTK_BINARY_DIR "$CMTK" | head -n 1 | grep -Eo '/[^}]+'`
 if [ -z "$CMTK_BINARY_DIR" ]; then echo "cannot find cmtk binary directory from shell script!"; exit 0; fi
