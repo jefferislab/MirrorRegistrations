@@ -10,8 +10,8 @@ if [ -z "$CMTK_BINARY_DIR" ]; then echo "cannot find cmtk binary directory from 
 
 # User config
 REFLOC="ReferenceBrains"	# Relative location of reference brain image
-MUNGER="munger"         	# Command or path to munger program
-if [ -z "$MUNGER" ]; then MUNGER="munger.pl"; fi
+MUNGER= `which munger 2> /dev/null`         	# Command or path to munger program
+if [ -z "$MUNGER" ]; then MUNGER=`which munger.pl`; fi
 if [ -z "$MUNGER" ]; then echo "Cannot find CMTK contributed munger[.pl] script"; exit 0; fi
 
 NAME=$1
